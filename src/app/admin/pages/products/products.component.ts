@@ -48,6 +48,8 @@ export default class ProductsComponent implements OnInit{
     this._productsService.getProductsList().subscribe( products => {
       this._products.set(products)
      })
+
+     return this.products()
   }
 
 }
