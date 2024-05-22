@@ -1,0 +1,64 @@
+<div>
+    @if ( users().length > 1 ) {
+        <table>
+            <thead>
+                <tr>
+                    <th>Documento</th>
+                    <th>ID</th>
+                    <th>Apellido</th>
+                    <th>Nombre</th>
+                    <th>Rol</th>
+                    <th>Editar rol</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (user of users(); track $index) {
+                    <tr>
+                        <td>{{ user.document }}</td>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.last_name }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.roles_id }}</td>
+                        <td>
+                            <select id="roles_id" (change)="updateRol(user.id, $event)">
+                                <option value="1">Administrador</option>
+                                <option value="2">Usuario</option>
+                                <option value="3">Invitado</option>
+                            </select>
+
+                            <button (click)="sendNewRol(user.id, user.roles_id)">
+                                Enviar
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    } @else {
+        <h3>No hay usuarios registrados</h3>
+    }
+
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <label for="nombre">Id:</label>
+        <input type="text" id="id" formControlName="id" required>
+        <br>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="name" formControlName="name" required>
+        <br>
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="last_name" formControlName="last_name" required>
+        <br>
+        <label for="documento">Documento:</label>
+        <input type="text" id="document" formControlName="document" required>
+        <br>
+        <label for="roles_id">Rol:</label>
+        <select id="roles_id" formControlName="roles_id">
+            <option value="1">Administrador</option>
+            <option value="2">Usuario</option>
+            <option value="3">Invitado</option>
+        </select>
+        <br>
+        <button type="submit">Crear Usuario</button>
+      </form>
+
+</div>
