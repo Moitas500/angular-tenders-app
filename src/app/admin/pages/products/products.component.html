@@ -1,1 +1,40 @@
-<p>products works!</p>
+@if ( products().length > 1 ) {
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripcion</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (product of products(); track $index) {
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }}</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+} @else {
+    <h3>No hay productos registrados</h3>
+}
+
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <label for="nombre">Id:</label>
+    <input type="text" id="id" formControlName="id" required>
+    <br>
+    <label for="description">Descripcion:</label>
+    <input type="text" id="description" formControlName="description" required>
+    <br>
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" formControlName="name" required>
+    <br>
+    <label for="price">Precio:</label>
+    <input type="number" id="price" formControlName="price" required>
+    <br>
+    <button type="submit">Crear Producto</button>
+  </form>
